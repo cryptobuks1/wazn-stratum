@@ -1,6 +1,6 @@
 #### System information
 
-Monero version: `monerod --version` or commit hash via `git rev-parse --short HEAD` if `master` branch
+WAZN version: `waznd --version` or commit hash via `git rev-parse --short HEAD` if `master` branch
 
 Stratum commit hash: `git rev-parse --short HEAD`
 

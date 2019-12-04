@@ -6,7 +6,7 @@ import (
 	"strings"
 	"sync/atomic"
 
-	"github.com/sammy007/monero-stratum/util"
+	"github.com/vermin/wazn-stratum/util"
 )
 
 var noncePattern *regexp.Regexp

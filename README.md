@@ -1,9 +1,11 @@
-# monero-stratum
+WAZN Stratum
+======================
 
-High performance CryptoNote mining stratum with Web-interface written in Golang.
+WORK IN PROGRESS: cnutil, hashing, pool, rpc, stratum, util ---> check again when [wazn-node-hashing](https://github.com/vermin/wazn-node-hashing) is complete.
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/sammy007/monero-stratum)](https://goreportcard.com/report/github.com/sammy007/monero-stratum)
-[![CircleCI](https://circleci.com/gh/sammy007/monero-stratum.svg?style=svg)](https://circleci.com/gh/sammy007/monero-stratum)
+[![License](https://img.shields.io/badge/license-GPL--2.0-orange)](https://opensource.org/licenses/GPL-2.0)
+
+High performance WAZN mining stratum with Web-interface written in Golang.
 
 **Stratum feature list:**
 
@@ -22,19 +24,20 @@ High performance CryptoNote mining stratum with Web-interface written in Golang.
 Dependencies:
 
   * go-1.6
-  * Everything required to build Monero
-  * Monero >= **v0.14.0.0** (sometimes `master` branch required)
+  * Everything required to build WAZN
+  * WAZN >= **v1.0.0**
 
 ### Linux
 
-Use Ubuntu 16.04 LTS.
+Use Ubuntu 16.04 or 18.04.
 
-Compile Monero source (with shared libraries option):
+Compile WAZN from source (with shared libraries option):
 
-    apt-get install git cmake build-essential libssl-dev pkg-config libboost-all-dev
-    git clone --recursive https://github.com/monero-project/monero.git
-    cd monero
-    git checkout tags/v0.14.0.0 -b v0.14.0.0
+Debian / Ubuntu one liner for all dependencies:  
+``` sudo apt update && sudo apt install git build-essential cmake libboost-all-dev miniupnpc libunbound-dev graphviz doxygen libunwind8-dev pkg-config libssl-dev libcurl4-openssl-dev libreadline-dev libzmq3-dev libsodium-dev libhidapi-dev libhidapi-libusb0 liblzma-dev libexpat1-dev libpgm-dev libldns-dev libreadline6-dev qttools5-dev-tools libusb-dev libprotobuf-dev protobuf-compiler ```
+
+    git clone --recursive https://github.com/project-wazn/wazn.git
+    cd wazn
     cmake -DBUILD_SHARED_LIBS=1 .
     make
 
@@ -44,23 +47,22 @@ Install Golang and required packages:
 
 Clone stratum:
 
-    git clone https://github.com/sammy007/monero-stratum.git
-    cd monero-stratum
+    git clone https://github.com/vermin/wazn-stratum.git
+    cd wazn-stratum
 
 Build stratum:
 
-    MONERO_DIR=/path/to/monero cmake .
+    WAZN_DIR=/path/to/wazn cmake .
     make
 
-`MONERO_DIR=/path/to/monero` is optional, not needed if both `monero` and `monero-stratum` is in the same directory like `/opt/src/`. By default make will search for monero libraries in `../monero`. You can just run `cmake .`.
+`WAZN_DIR=/path/to/wazn` is optional, not needed if both `wazn` and `wazn-stratum` is in the same directory like `/opt/src/`. By default make will search for WAZN libraries in `../wazn`. You can just run `cmake .`.
 
 ### Mac OS X
 
-Compile Monero source:
+Compile WAZN source:
 
-    git clone --recursive https://github.com/monero-project/monero.git
-    cd monero
-    git checkout tags/v0.14.0.0 -b v0.14.0.0
+    git clone --recursive https://github.com/project-wazn/wazn.git
+    cd wazn
     cmake .
     make
 
@@ -70,22 +72,22 @@ Install Golang and required packages:
 
 Clone stratum:
 
-    git clone https://github.com/sammy007/monero-stratum.git
-    cd monero-stratum
+    git clone https://github.com/vermin/wazn-stratum.git
+    cd wazn-stratum
 
 Build stratum:
 
-    MONERO_DIR=/path/to/monero cmake .
+    WAZN_DIR=/path/to/wazn cmake .
     make
 
 ### Running Stratum
 
-    ./build/bin/monero-stratum config.json
+    ./build/bin/wazn-stratum config.json
 
 If you need to bind to privileged ports and don't want to run from `root`:
 
     sudo apt-get install libcap2-bin
-    sudo setcap 'cap_net_bind_service=+ep' /path/to/monero-stratum
+    sudo setcap 'cap_net_bind_service=+ep' /path/to/wazn-stratum
 
 ## Configuration
 
@@ -143,7 +145,7 @@ Configuration is self-describing, just copy *config.example.json* to *config.jso
     {
       "name": "Main",
       "host": "127.0.0.1",
-      "port": 18081,
+      "port": 11787,
       "timeout": "10s"
     }
   ]
@@ -152,16 +154,9 @@ Configuration is self-describing, just copy *config.example.json* to *config.jso
 
 You must use `anything.WorkerID` as username in your miner. Either disable address validation or use `<address>.WorkerID` as username. If there is no workerID specified your rig stats will be merged under `0` worker. If mining software contains dev fee rounds its stats will usually appear under `0` worker. This stratum acts like your own pool, the only exception is that you will get rewarded only after block found, shares only used for stats.
 
-### Donations
-
-**XMR**: `47v4BWeUPFrM9YkYRYk2pkS9CubAPEc7BJjNjg4FvF66Y2oVrTAaBjDZhmFzAXgqCNRvBH2gupQ2gNag2FkP983ZMptvUWG`
-
-![](https://cdn.pbrd.co/images/GP5tI1D.png)
-
-Highly appreciated.
-
-### License
-
-Released under the GNU General Public License v2.
-
-http://www.gnu.org/licenses/gpl-2.0.html
+## License
+```
+Licensed under the GPL-2.0
+Copyright (c) 2019 WAZN Project
+Copyright (c) 2017-2019 sammy007
+```

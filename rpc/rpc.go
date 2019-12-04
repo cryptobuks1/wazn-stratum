@@ -11,7 +11,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/sammy007/monero-stratum/pool"
+	"github.com/vermin/wazn-stratum/pool"
 )
 
 type RPCClient struct {

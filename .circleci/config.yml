@@ -6,7 +6,7 @@ jobs:
       - image: ubuntu:16.04
     parallelism: 3
     resource_class: large
-    working_directory: ~/monero-stratum
+    working_directory: ~/wazn-stratum
     branches:
       only:
         - master
@@ -18,19 +18,19 @@ jobs:
           echo 'export PATH=~/go/bin:$PATH' >> ~/.bashrc
       - restore_cache:
           keys:
-            - v1-monero-{{ arch }}-v0.14.0.0.tar.gz
+            - v1-wazn-{{ arch }}.tar.gz
       - run: |
-          git clone --recursive --branch v0.14.0.0 --depth 1 https://github.com/monero-project/monero.git ~/monero-0.14.0.0
-          pushd ~/monero-0.14.0.0 && cmake -DBUILD_SHARED_LIBS=1 . && make && popd
+          git clone --recursive --depth 1 https://github.com/project-wazn/wazn.git ~/wazn
+          pushd ~/wazn && cmake -DBUILD_SHARED_LIBS=1 . && make && popd
       - save_cache:
-          key: v1-monero-{{ arch }}-v0.14.0.0.tar.gz
+          key: v1-wazn-{{ arch }}.tar.gz
           paths:
-            - ~/monero-0.14.0.0
+            - ~/wazn
       - checkout
       - run:
           name: Compile
           environment:
-            - MONERO_DIR: "~/monero-0.14.0.0"
+            - WAZN_DIR: "~/wazn"
           command: |
             cmake .
             make
